@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cakrawala Indah Group — Interior Design Excellence</title>
+<meta name="description" content="Cakrawala Indah Group — Studio desain interior premium yang menghadirkan ruang impian Anda dengan sentuhan seni dan keahlian profesional.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+/* ============================================================
+   CSS VARIABLES & RESET
+   ============================================================ */
+:root {
+  --cream: #F5F0E8;
+  --warm-white: #FDFAF5;
+  --deep: #1A1612;
+  --charcoal: #2D2820;
+  --gold: #C9A96E;
+  --gold-light: #E8D5A8;
+  --muted: #8A7F72;
+  --border: rgba(201,169,110,0.18);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--warm-white);
+  color: var(--deep);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.display { font-family: var(--font-display); font-weight: 300; line-height: 1.1; }
+.display-lg { font-size: clamp(3rem, 7vw, 6.5rem); }
+.display-md { font-size: clamp(2.2rem, 4.5vw, 4rem); }
+.display-sm { font-size: clamp(1.6rem, 3vw, 2.4rem); }
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 4rem); }
+.container--narrow { max-width: 860px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 4rem); }
+section { position: relative; overflow: hidden; }
+
+/* ============================================================
+   CURSOR (DESKTOP)
+   ============================================================ */
+@media (hover: hover) {
+  body { cursor: none; }
+  #cursor {
+    position: fixed; top: 0; left: 0; z-index: 9999;
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s var(--ease), width 0.4s var(--ease-out), height 0.4s var(--ease-out), background 0.3s;
+    mix-blend-mode: multiply;
+  }
+  #cursor.hover { width: 44px; height: 44px; background: rgba(201,169,110,0.3); }
+  a, button { cursor: none; }
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.6rem 0;
+  transition: padding 0.4s var(--ease), background 0.4s var(--ease), backdrop-filter 0.4s;
+}
+#navbar.scrolled {
+  padding: 1rem 0;
+  background: rgba(253,250,245,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 4rem);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--deep);
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.nav-logo span { color: var(--gold); }
+
+.nav-links {
+  display: flex; align-items: center; gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.35s var(--ease);
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.6rem;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  border-radius: 2px;
+  transition: background 0.3s, color 0.3s;
+}
+.nav-cta:hover { background: var(--gold); color: var(--warm-white); }
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  width: 26px; padding: 4px 0;
+}
+.nav-hamburger span {
+  display: block; height: 1.5px; width: 100%;
+  background: var(--deep);
+  transition: transform 0.3s var(--ease), opacity 0.3s;
+}
+
+/* Mobile menu */
+#mobile-menu {
+  display: none;
+  position: fixed; inset: 0; z-index: 99;
+  background: var(--deep);
+  flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+}
+#mobile-menu.open { display: flex; }
+#mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 2.4rem; font-weight: 300;
+  color: var(--cream);
+  transition: color 0.3s;
+}
+#mobile-menu a:hover { color: var(--gold); }
+#menu-close {
+  position: absolute; top: 2rem; right: 2.5rem;
+  font-size: 1.8rem; color: var(--cream);
+  background: none; border: none;
+}
+
+@media (max-width: 860px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero {
+  min-height: 100svh;
+  background: var(--deep);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  overflow: hidden;
+  position: relative;
+}
+.hero-grain {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.5; pointer-events: none;
+}
+.hero-content {
+  padding: clamp(7rem, 14vw, 12rem) clamp(2rem, 6vw, 5rem) clamp(5rem, 8vw, 7rem);
+  z-index: 2;
+}
+.hero-eyebrow { color: var(--gold-light); margin-bottom: 2rem; }
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 6vw, 6rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--cream);
+  margin-bottom: 1.8rem;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: 0.95rem; color: rgba(245,240,232,0.6);
+  max-width: 420px; line-height: 1.75;
+  margin-bottom: 3rem;
+}
+.hero-actions { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 1rem 2.2rem;
+  background: var(--gold); color: var(--deep);
+  border-radius: 2px;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.78rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 1rem 2.2rem;
+  border: 1px solid rgba(245,240,232,0.25); color: var(--cream);
+  border-radius: 2px;
+  transition: border-color 0.3s, background 0.3s;
+}
+.btn-secondary:hover { border-color: var(--gold); background: rgba(201,169,110,0.08); }
+
+.hero-visual {
+  height: 100%;
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+}
+.hero-visual img, .hero-visual .hero-img-placeholder {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-img-placeholder {
+  background: linear-gradient(160deg, #2D2012 0%, #1A1612 40%, #0F0D0A 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-stats {
+  position: absolute; bottom: 3rem; left: 3rem;
+  display: flex; gap: 2.5rem;
+  background: rgba(26,22,18,0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(201,169,110,0.2);
+  border-radius: 4px;
+  padding: 1.4rem 2rem;
+}
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 2.2rem; font-weight: 300;
+  color: var(--gold); line-height: 1;
+}
+.hero-stat-label { font-size: 0.72rem; color: rgba(245,240,232,0.5); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+
+/* decorative line */
+.hero-line {
+  position: absolute; left: 0; bottom: 0; top: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--gold) 40%, var(--gold) 70%, transparent);
+  opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+  #hero { grid-template-columns: 1fr; grid-template-rows: 1fr auto; min-height: auto; }
+  .hero-content { padding: 8rem 1.5rem 3rem; }
+  .hero-visual { min-height: 55vw; height: 55vw; }
+  .hero-stats { left: 1.5rem; bottom: 1.5rem; gap: 1.5rem; padding: 1rem 1.2rem; }
+}
+
+/* ============================================================
+   TICKER STRIP
+   ============================================================ */
+.ticker-strip {
+  background: var(--gold);
+  padding: 0.85rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-track {
+  display: inline-flex; gap: 3rem;
+  animation: ticker 28s linear infinite;
+}
+.ticker-item {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--deep);
+  display: flex; align-items: center; gap: 1rem;
+}
+.ticker-item::after { content: '✦'; opacity: 0.5; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ============================================================
+   ABOUT SECTION
+   ============================================================ */
+#about { padding: clamp(5rem, 10vw, 9rem) 0; background: var(--warm-white); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem, 6vw, 7rem);
+  align-items: center;
+}
+.about-images {
+  position: relative;
+  aspect-ratio: 3/4;
+}
+.about-img-main {
+  width: 75%; height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+  position: absolute; left: 0; top: 0;
+}
+.about-img-alt {
+  width: 52%; aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 2px;
+  position: absolute; right: 0; bottom: 15%;
+  border: 6px solid var(--warm-white);
+  box-shadow: 0 24px 60px rgba(26,22,18,0.14);
+}
+.about-badge {
+  position: absolute; left: 55%; top: 12%;
+  background: var(--deep);
+  color: var(--gold-light);
+  border-radius: 3px;
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+  min-width: 120px;
+  box-shadow: 0 20px 50px rgba(26,22,18,0.3);
+}
+.about-badge-num { font-family: var(--font-display); font-size: 2.4rem; font-weight: 300; line-height: 1; }
+.about-badge-text { font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-top: 0.4rem; }
+
+/* image placeholders */
+.img-ph {
+  background: linear-gradient(145deg, var(--cream) 0%, #EDE5D5 100%);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 0.75rem; letter-spacing: 0.1em;
+}
+
+.about-text .eyebrow { margin-bottom: 1.2rem; }
+.about-text h2 { margin-bottom: 1.4rem; color: var(--deep); }
+.about-text p { color: var(--muted); line-height: 1.8; font-size: 0.95rem; margin-bottom: 1rem; }
+.about-pillars { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 1.8rem 0 2.2rem; }
+.about-pill {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.5rem 1.1rem;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--charcoal);
+  transition: background 0.3s, border-color 0.3s;
+}
+.about-pill:hover { background: var(--cream); border-color: var(--gold); }
+.about-cta { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.founder-chip {
+  display: flex; align-items: center; gap: 0.8rem;
+  font-size: 0.82rem; color: var(--muted);
+}
+.founder-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--cream); border: 2px solid var(--gold-light);
+  overflow: hidden;
+}
+
+.btn-gold {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.9rem 2rem;
+  background: var(--deep); color: var(--cream);
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+.btn-gold:hover { background: var(--charcoal); }
+
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-images { aspect-ratio: auto; height: 60vw; min-height: 260px; }
+}
+
+/* ============================================================
+   WHY CHOOSE US
+   ============================================================ */
+#why { padding: clamp(5rem, 10vw, 9rem) 0; background: var(--deep); }
+#why .eyebrow { color: var(--gold); }
+#why h2 { color: var(--cream); margin: 1rem 0 3.5rem; }
+
+.why-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  background: rgba(201,169,110,0.12);
+  border: 1px solid rgba(201,169,110,0.12);
+}
+.why-card {
+  background: var(--deep);
+  padding: 2.8rem 2.4rem;
+  transition: background 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+.why-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+  transition: transform 0.5s var(--ease);
+}
+.why-card:hover::before { transform: scaleX(1); }
+.why-card:hover { background: rgba(201,169,110,0.06); }
+.why-icon {
+  width: 48px; height: 48px; margin-bottom: 1.8rem;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold); font-size: 1.4rem;
+}
+.why-card h3 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; color: var(--cream); margin-bottom: 0.8rem; }
+.why-card p { font-size: 0.88rem; color: rgba(245,240,232,0.5); line-height: 1.75; }
+.why-num {
+  position: absolute; top: 2rem; right: 2rem;
+  font-family: var(--font-display); font-size: 3.5rem; font-weight: 300;
+  color: rgba(201,169,110,0.08); line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .why-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+#services { padding: clamp(5rem, 10vw, 9rem) 0; background: var(--cream); }
+.section-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: clamp(3rem, 5vw, 4.5rem); flex-wrap: wrap; }
+.section-header h2 { max-width: 480px; }
+
+.services-list { display: flex; flex-direction: column; gap: 0; }
+.service-item {
+  display: grid; grid-template-columns: 80px 1fr auto;
+  align-items: center; gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(201,169,110,0.2);
+  transition: padding-left 0.4s var(--ease);
+  cursor: pointer;
+  position: relative;
+}
+.service-item:first-child { border-top: 1px solid rgba(201,169,110,0.2); }
+.service-item:hover { padding-left: 1.5rem; }
+.service-num { font-family: var(--font-display); font-size: 1.1rem; font-weight: 300; color: var(--gold); }
+.service-info h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; color: var(--deep); transition: color 0.3s; }
+.service-item:hover .service-info h3 { color: var(--gold); }
+.service-info p { font-size: 0.84rem; color: var(--muted); margin-top: 0.3rem; }
+.service-arrow {
+  width: 44px; height: 44px;
+  border: 1px solid rgba(201,169,110,0.3);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold); font-size: 1.1rem;
+  transition: background 0.3s, transform 0.3s;
+  flex-shrink: 0;
+}
+.service-item:hover .service-arrow { background: var(--gold); color: var(--deep); transform: rotate(45deg); }
+
+@media (max-width: 600px) {
+  .service-item { grid-template-columns: 50px 1fr auto; gap: 1rem; }
+}
+
+/* ============================================================
+   PROJECTS / PORTFOLIO
+   ============================================================ */
+#projects { padding: clamp(5rem, 10vw, 9rem) 0; background: var(--warm-white); }
+.projects-filter {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+.filter-btn {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--muted);
+  background: transparent;
+  transition: all 0.3s;
+}
+.filter-btn.active, .filter-btn:hover { background: var(--deep); color: var(--cream); border-color: var(--deep); }
+
+.projects-masonry {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.2rem;
+}
+.project-card { position: relative; overflow: hidden; border-radius: 3px; cursor: pointer; }
+.project-card:nth-child(1) { grid-column: 1/8; grid-row: 1/3; aspect-ratio: auto; min-height: 520px; }
+.project-card:nth-child(2) { grid-column: 8/13; aspect-ratio: 4/3; }
+.project-card:nth-child(3) { grid-column: 8/13; aspect-ratio: 4/3; }
+.project-card:nth-child(4) { grid-column: 1/5; aspect-ratio: 4/3; }
+.project-card:nth-child(5) { grid-column: 5/9; aspect-ratio: 4/3; }
+.project-card:nth-child(6) { grid-column: 9/13; aspect-ratio: 4/3; }
+
+.project-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+.project-card:hover .project-img { transform: scale(1.06); }
+
+.project-img-ph {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em;
+  transition: transform 0.7s var(--ease-out);
+}
+.project-card:hover .project-img-ph { transform: scale(1.06); }
+
+/* color themes for placeholders */
+.ph-1 { background: linear-gradient(135deg,#DDD0BB,#C8B89A); }
+.ph-2 { background: linear-gradient(135deg,#B8C4B8,#8FA890); }
+.ph-3 { background: linear-gradient(135deg,#C4B8B0,#A8958C); }
+.ph-4 { background: linear-gradient(135deg,#D4C8B8,#BFB098); }
+.ph-5 { background: linear-gradient(135deg,#C8C4B8,#ADA890); }
+.ph-6 { background: linear-gradient(135deg,#D0C4C0,#B8A4A0); }
+
+.project-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,22,18,0.85) 0%, transparent 55%);
+  opacity: 0; transition: opacity 0.4s;
+  display: flex; align-items: flex-end; padding: 2rem;
+}
+.project-card:hover .project-overlay { opacity: 1; }
+.project-meta { transform: translateY(12px); transition: transform 0.4s var(--ease); }
+.project-card:hover .project-meta { transform: translateY(0); }
+.project-tag { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; }
+.project-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 300; color: var(--cream); margin-top: 0.3rem; }
+
+@media (max-width: 900px) {
+  .projects-masonry { grid-template-columns: 1fr 1fr; }
+  .project-card:nth-child(1) { grid-column: 1/3; min-height: 300px; }
+  .project-card:nth-child(n) { grid-column: auto; aspect-ratio: 4/3; min-height: auto; }
+}
+@media (max-width: 560px) {
+  .projects-masonry { grid-template-columns: 1fr; }
+  .project-card:nth-child(n) { grid-column: 1; }
+}
+
+/* ============================================================
+   PROCESS
+   ============================================================ */
+#process { padding: clamp(5rem, 10vw, 9rem) 0; background: var(--deep); position: relative; }
+.process-bg-text {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display); font-size: clamp(8rem, 20vw, 18rem); font-weight: 300;
+  color: rgba(201,169,110,0.03);
+  white-space: nowrap; pointer-events: none; user-select: none;
+}
+#process .eyebrow { color: var(--gold); }
+#process h2 { color: var(--cream); margin: 1rem 0 3.5rem; max-width: 500px; }
+
+.process-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative; z-index: 1;
+}
+.process-step {
+  padding: 0 2.5rem 0 0;
+  border-right: 1px solid rgba(201,169,110,0.1);
+  padding-right: 3rem;
+}
+.process-step:last-child { border-right: none; }
+.process-step:not(:first-child) { padding-left: 3rem; }
+.step-num {
+  font-family: var(--font-display); font-size: 3.5rem; font-weight: 300;
+  color: rgba(201,169,110,0.2); line-height: 1;
+  margin-bottom: 1.5rem;
+}
+.step-title { font-family: var(--font-display); font-size: 1.35rem; font-weight: 400; color: var(--cream); margin-bottom: 0.8rem; }
+.step-desc { font-size: 0.86rem; color: rgba(245,240,232,0.45); line-height: 1.75; }
+
+@media (max-width: 768px) {
+  .process-steps { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .process-step { border-right: none; padding: 0 !important; }
+}
+@media (max-width: 480px) {
+  .process-steps { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   SKILLS / EXPERTISE
+   ============================================================ */
+#skills { padding: clamp(5rem, 10vw, 9rem) 0; background: var(--cream); }
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem, 7vw, 7rem); align-items: center; }
+.skills-visual {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.skill-img-card {
+  border-radius: 3px; overflow: hidden;
+  aspect-ratio: 3/4;
+}
+.skill-img-card:first-child { margin-top: 3rem; }
+.skill-img-card img, .skill-img-card .img-ph { width: 100%; height: 100%; object-fit: cover; }
+
+.skills-text .eyebrow { margin-bottom: 1rem; }
+.skills-text h2 { margin-bottom: 2rem; }
+
+.skill-bar { margin-bottom: 1.8rem; }
+.skill-bar-header { display: flex; justify-content: space-between; margin-bottom: 0.6rem; }
+.skill-bar-name { font-size: 0.82rem; font-weight: 500; color: var(--charcoal); letter-spacing: 0.06em; }
+.skill-bar-pct { font-size: 0.82rem; color: var(--gold); font-weight: 500; }
+.skill-bar-track {
+  height: 3px; background: rgba(201,169,110,0.15); border-radius: 10px; overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%; border-radius: 10px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.2s var(--ease-out);
+}
+.skill-bar-fill.animated { transform: scaleX(1); }
+
+@media (max-width: 768px) { .skills-grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+#testimonials { padding: clamp(5rem, 10vw, 9rem) 0; background: var(--warm-white); }
+.testimonial-header { text-align: center; max-width: 600px; margin: 0 auto 3.5rem; }
+.testimonial-header .eyebrow { margin-bottom: 1rem; }
+
+.testimonials-track-wrap { overflow: hidden; position: relative; }
+.testimonials-track {
+  display: flex; gap: 2rem;
+  transition: transform 0.6s var(--ease-out);
+}
+.testimonial-card {
+  min-width: calc(50% - 1rem);
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2.5rem;
+}
+.stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 0.1em; margin-bottom: 1.2rem; }
+.testimonial-text {
+  font-family: var(--font-display); font-size: 1.25rem; font-weight: 300; font-style: italic;
+  color: var(--charcoal); line-height: 1.6; margin-bottom: 1.8rem;
+}
+.testimonial-author { display: flex; align-items: center; gap: 1rem; }
+.author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--gold-light); overflow: hidden; flex-shrink: 0; }
+.author-name { font-size: 0.88rem; font-weight: 500; color: var(--deep); }
+.author-role { font-size: 0.76rem; color: var(--muted); }
+
+.testimonial-controls { display: flex; align-items: center; gap: 1rem; margin-top: 2.5rem; justify-content: center; }
+.t-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--deep); transition: all 0.3s;
+}
+.t-btn:hover { background: var(--deep); color: var(--cream); border-color: var(--deep); }
+.t-dots { display: flex; gap: 0.5rem; }
+.t-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background 0.3s; }
+.t-dot.active { background: var(--gold); }
+
+@media (max-width: 600px) {
+  .testimonial-card { min-width: 85vw; }
+}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+#contact { padding: clamp(5rem, 10vw, 9rem) 0; background: var(--deep); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(3rem, 6vw, 7rem); align-items: start; }
+#contact .eyebrow { color: var(--gold); margin-bottom: 1.2rem; }
+#contact h2 { color: var(--cream); margin-bottom: 1.4rem; }
+#contact .lead { font-size: 0.92rem; color: rgba(245,240,232,0.5); line-height: 1.8; margin-bottom: 2.5rem; }
+
+.contact-details { display: flex; flex-direction: column; gap: 1.2rem; }
+.contact-detail {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1.2rem; border: 1px solid rgba(201,169,110,0.12);
+  border-radius: 3px;
+}
+.contact-detail-icon { font-size: 1rem; color: var(--gold); margin-top: 0.1rem; flex-shrink: 0; }
+.contact-detail-label { font-size: 0.68rem; color: rgba(245,240,232,0.35); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.2rem; }
+.contact-detail-value { font-size: 0.9rem; color: var(--cream); }
+
+/* Contact Form */
+.contact-form { background: rgba(245,240,232,0.04); border: 1px solid rgba(201,169,110,0.12); border-radius: 4px; padding: 2.5rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.form-group { margin-bottom: 1rem; }
+.form-label { display: block; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,240,232,0.5); margin-bottom: 0.5rem; }
+.form-input {
+  width: 100%;
+  background: rgba(245,240,232,0.06);
+  border: 1px solid rgba(201,169,110,0.15);
+  border-radius: 2px;
+  padding: 0.85rem 1rem;
+  color: var(--cream);
+  font-family: var(--font-body); font-size: 0.9rem;
+  transition: border-color 0.3s;
+  outline: none;
+}
+.form-input::placeholder { color: rgba(245,240,232,0.25); }
+.form-input:focus { border-color: var(--gold); }
+textarea.form-input { resize: vertical; min-height: 120px; }
+
+.form-btn {
+  width: 100%; padding: 1rem;
+  background: var(--gold); color: var(--deep);
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  border-radius: 2px;
+  transition: background 0.3s, transform 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+}
+.form-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+.form-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.form-message { margin-top: 1rem; font-size: 0.82rem; text-align: center; min-height: 1.2rem; }
+.form-message.success { color: #82C49E; }
+.form-message.error { color: #E08080; }
+
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   NEWSLETTER
+   ============================================================ */
+#newsletter { padding: 5rem 0; background: var(--gold); }
+.newsletter-inner { display: flex; align-items: center; justify-content: space-between; gap: 2.5rem; flex-wrap: wrap; }
+#newsletter h3 { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--deep); }
+#newsletter p { font-size: 0.88rem; color: rgba(26,22,18,0.65); margin-top: 0.4rem; }
+.newsletter-form { display: flex; gap: 0.8rem; flex: 1; max-width: 420px; }
+.newsletter-input {
+  flex: 1;
+  padding: 0.85rem 1.1rem;
+  background: rgba(26,22,18,0.1);
+  border: 1px solid rgba(26,22,18,0.2);
+  border-radius: 2px;
+  font-family: var(--font-body); font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.newsletter-input::placeholder { color: rgba(26,22,18,0.4); }
+.newsletter-input:focus { border-color: var(--deep); }
+.newsletter-btn {
+  padding: 0.85rem 1.6rem;
+  background: var(--deep); color: var(--cream);
+  font-size: 0.76rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  border-radius: 2px;
+  white-space: nowrap;
+  transition: background 0.3s;
+}
+.newsletter-btn:hover { background: var(--charcoal); }
+#nl-msg { width: 100%; font-size: 0.8rem; color: rgba(26,22,18,0.7); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer { background: var(--deep); border-top: 1px solid rgba(201,169,110,0.1); padding: 5rem 0 2rem; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-brand .logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; color: var(--cream); margin-bottom: 1rem; }
+.footer-brand .logo span { color: var(--gold); }
+.footer-brand p { font-size: 0.86rem; color: rgba(245,240,232,0.4); line-height: 1.75; max-width: 260px; margin-bottom: 1.5rem; }
+.social-links { display: flex; gap: 0.8rem; }
+.social-link {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(201,169,110,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(245,240,232,0.4); font-size: 0.85rem;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.social-link:hover { border-color: var(--gold); color: var(--gold); }
+
+.footer-col h4 { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-col li a { font-size: 0.86rem; color: rgba(245,240,232,0.4); transition: color 0.3s; }
+.footer-col li a:hover { color: var(--cream); }
+
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 2rem; border-top: 1px solid rgba(201,169,110,0.08);
+  font-size: 0.76rem; color: rgba(245,240,232,0.25); flex-wrap: wrap; gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1/3; }
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-brand { grid-column: 1; }
+}
+
+/* ============================================================
+   SCROLL ANIMATIONS
+   ============================================================ */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+.reveal-delay-3 { transition-delay: 0.36s; }
+
+/* ============================================================
+   SCROLL TO TOP
+   ============================================================ */
+#scroll-top {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 50;
+  width: 44px; height: 44px;
+  background: var(--gold); color: var(--deep);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s, background 0.3s;
+  pointer-events: none;
+}
+#scroll-top.show { opacity: 1; transform: translateY(0); pointer-events: all; }
+#scroll-top:hover { background: var(--gold-light); }
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.text-gold { color: var(--gold); }
+.mt-2 { margin-top: 1rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor" aria-hidden="true"></div>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Cakrawala <span>Indah</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">Tentang Kami</a></li>
+      <li><a href="#services">Layanan</a></li>
+      <li><a href="#projects">Proyek</a></li>
+      <li><a href="#contact">Kontak</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Konsultasi Gratis</a>
+    <button class="nav-hamburger" id="menu-toggle" aria-label="Buka menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <button id="menu-close" aria-label="Tutup menu">✕</button>
+  <a href="#about" class="mobile-link">Tentang Kami</a>
+  <a href="#services" class="mobile-link">Layanan</a>
+  <a href="#projects" class="mobile-link">Proyek</a>
+  <a href="#contact" class="mobile-link">Kontak</a>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero" aria-label="Hero section">
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <p class="eyebrow hero-eyebrow">Studio Desain Interior</p>
+    <h1 class="hero-title display">
+      Ruang yang<br><em>Bercerita</em>,<br>Rumah yang<br>Menginspirasi
+    </h1>
+    <p class="hero-sub">Kami menciptakan interior personal, fungsional, dan elegan yang mencerminkan visi unik Anda — dari konsep hingga karya nyata.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">Lihat Portofolio ↗</a>
+      <a href="#about" class="btn-secondary">Kenali Kami</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-img-placeholder img-ph" style="height:100%; min-height:100svh; background:linear-gradient(160deg,#2B1F14 0%,#1C1510 50%,#0F0C09 100%);">
+      <!-- Interior ambiance illustration -->
+      <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.12">
+        <rect x="30" y="60" width="160" height="120" stroke="#C9A96E" stroke-width="1.5"/>
+        <line x1="30" y1="180" x2="190" y2="180" stroke="#C9A96E" stroke-width="1.5"/>
+        <rect x="60" y="130" width="35" height="50" stroke="#C9A96E" stroke-width="1"/>
+        <rect x="120" y="120" width="50" height="60" stroke="#C9A96E" stroke-width="1"/>
+        <rect x="85" y="70" width="50" height="30" stroke="#C9A96E" stroke-width="1"/>
+        <circle cx="170" cy="85" r="12" stroke="#C9A96E" stroke-width="1"/>
+        <line x1="170" y1="73" x2="170" y2="30" stroke="#C9A96E" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-count="98">0</div>
+        <div class="hero-stat-label">Kepuasan Klien %</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-count="12">0</div>
+        <div class="hero-stat-label">Tahun Pengalaman</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-count="340">0</div>
+        <div class="hero-stat-label">Proyek Selesai</div>
+      </div>
+    </div>
+    <div class="hero-line"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TICKER
+     ============================================================ -->
+<div class="ticker-strip" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Residential Design</span>
+    <span class="ticker-item">Commercial Interior</span>
+    <span class="ticker-item">Furniture Curation</span>
+    <span class="ticker-item">Lighting Design</span>
+    <span class="ticker-item">Color Consultation</span>
+    <span class="ticker-item">3D Visualization</span>
+    <span class="ticker-item">Space Planning</span>
+    <span class="ticker-item">Residential Design</span>
+    <span class="ticker-item">Commercial Interior</span>
+    <span class="ticker-item">Furniture Curation</span>
+    <span class="ticker-item">Lighting Design</span>
+    <span class="ticker-item">Color Consultation</span>
+    <span class="ticker-item">3D Visualization</span>
+    <span class="ticker-item">Space Planning</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-images reveal">
+        <div class="about-img-main img-ph ph-1" style="position:absolute;left:0;top:0;width:75%;height:100%;">
+          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" style="opacity:0.3"><rect x="10" y="15" width="40" height="30" stroke="#8A7F72" stroke-width="1.5"/><line x1="10" y1="45" x2="50" y2="45" stroke="#8A7F72" stroke-width="1.5"/><rect x="20" y="32" width="8" height="13" stroke="#8A7F72" stroke-width="1"/><rect x="32" y="28" width="12" height="17" stroke="#8A7F72" stroke-width="1"/></svg>
+        </div>
+        <div class="about-img-alt img-ph ph-3" style="position:absolute;right:0;bottom:15%;width:52%;aspect-ratio:1;border:6px solid var(--warm-white);box-shadow:0 24px 60px rgba(26,22,18,.14);">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="opacity:0.3"><circle cx="20" cy="20" r="12" stroke="#8A7F72" stroke-width="1.5"/><line x1="20" y1="8" x2="20" y2="4" stroke="#8A7F72" stroke-width="1.5"/></svg>
+        </div>
+        <div class="about-badge">
+          <div class="about-badge-num">12+</div>
+          <div class="about-badge-text">Tahun<br>Pengalaman</div>
+        </div>
+      </div>
+      <div class="about-text reveal reveal-delay-1">
+        <p class="eyebrow">Tentang Kami</p>
+        <h2 class="display display-md">Hasrat kami untuk desain, visi Anda <em style="font-style:italic;color:var(--gold)">diwujudkan</em></h2>
+        <p>Tim desainer berdedikasi kami bekerja erat bersama Anda untuk memahami visi dan menghadirkannya dengan perhatian penuh terhadap detail. Baik mengubah satu ruangan maupun seluruh hunian.</p>
+        <p>Kami percaya setiap ruang memiliki potensi tersembunyi. Misi kami adalah mengungkap dan memaksimalkan potensi itu dengan sentuhan estetika tinggi dan solusi fungsional.</p>
+        <div class="about-pillars">
+          <span class="about-pill">Keahlian Kreatif</span>
+          <span class="about-pill">Pendekatan Klien-Sentris</span>
+          <span class="about-pill">Kualitas Premium</span>
+          <span class="about-pill">Berkelanjutan</span>
+        </div>
+        <div class="about-cta">
+          <a href="#contact" class="btn-gold">Mulai Konsultasi ↗</a>
+          <div class="founder-chip">
+            <div class="founder-avatar img-ph" style="width:40px;height:40px;border-radius:50%;background:var(--cream);border:2px solid var(--gold-light);"></div>
+            <div>
+              <div style="font-weight:500;font-size:0.84rem;">Direktur Utama</div>
+              <div style="font-size:0.75rem;color:var(--muted);">Cakrawala Indah Group</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY CHOOSE US
+     ============================================================ -->
+<section id="why">
+  <div class="container">
+    <p class="eyebrow reveal">Mengapa Kami</p>
+    <h2 class="display display-md reveal reveal-delay-1" style="color:var(--cream);margin:1rem 0 3.5rem;max-width:520px;">Di balik layar studio desain kami</h2>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-num">01</div>
+        <div class="why-icon">◈</div>
+        <h3>Solusi Desain Khusus</h3>
+        <p>Kami menyediakan layanan desain interior yang dipersonalisasi, mencerminkan visi dan gaya hidup unik Anda.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-num">02</div>
+        <div class="why-icon">◉</div>
+        <h3>Manajemen Proyek Mulus</h3>
+        <p>Kami mengelola seluruh proses desain, dari konsep hingga penyelesaian, dengan eksekusi tanpa cacat.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-num">03</div>
+        <div class="why-icon">◎</div>
+        <h3>Kolaborasi Berpusat Klien</h3>
+        <p>Masukan Anda dihargai sepanjang proses, memastikan visi Anda terwujud sepenuhnya.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICES
+     ============================================================ -->
+<section id="services">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow reveal">Layanan Kami</p>
+        <h2 class="display display-md reveal reveal-delay-1" style="margin-top:1rem;">Layanan desain inovatif<br>untuk setiap kebutuhan</h2>
+      </div>
+      <a href="#contact" class="btn-gold reveal reveal-delay-2">Lihat Semua ↗</a>
+    </div>
+    <div class="services-list">
+      <div class="service-item reveal">
+        <span class="service-num">01</span>
+        <div class="service-info">
+          <h3>Desain Interior Residensial</h3>
+          <p>Ruang hunian personal yang mencerminkan gaya dan kebutuhan fungsional Anda</p>
+        </div>
+        <div class="service-arrow">↗</div>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">02</span>
+        <div class="service-info">
+          <h3>Desain Interior Komersial</h3>
+          <p>Meningkatkan lingkungan bisnis dengan profesional, fungsional, dan estetis</p>
+        </div>
+        <div class="service-arrow">↗</div>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">03</span>
+        <div class="service-info">
+          <h3>Kurasi Furnitur & Dekorasi</h3>
+          <p>Pemilihan furnitur dan dekorasi sempurna yang melengkapi gaya Anda</p>
+        </div>
+        <div class="service-arrow">↗</div>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">04</span>
+        <div class="service-info">
+          <h3>Desain Pencahayaan</h3>
+          <p>Solusi pencahayaan yang menciptakan suasana dan menonjolkan keindahan ruang</p>
+        </div>
+        <div class="service-arrow">↗</div>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">05</span>
+        <div class="service-info">
+          <h3>Konsultasi Warna</h3>
+          <p>Panduan palet warna profesional yang harmonis dengan selera dan kebutuhan Anda</p>
+        </div>
+        <div class="service-arrow">↗</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJECTS
+     ============================================================ -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow reveal">Portofolio</p>
+        <h2 class="display display-md reveal reveal-delay-1" style="margin-top:1rem;">Proyek kreatif yang<br>mendefinisikan gaya kami</h2>
+      </div>
+    </div>
+    <div class="projects-filter reveal">
+      <button class="filter-btn active" data-filter="all">Semua</button>
+      <button class="filter-btn" data-filter="residential">Residensial</button>
+      <button class="filter-btn" data-filter="commercial">Komersial</button>
+      <button class="filter-btn" data-filter="minimalist">Minimalis</button>
+    </div>
+    <div class="projects-masonry">
+      <div class="project-card reveal" data-cat="residential">
+        <div class="project-img-ph ph-1" style="width:100%;height:100%;position:absolute;inset:0;"></div>
+        <div class="project-overlay">
+          <div class="project-meta">
+            <div class="project-tag">Residensial · 2024</div>
+            <div class="project-title">Urban Retreat: Modern Meets Comfort</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-1" data-cat="commercial">
+        <div class="project-img-ph ph-2" style="width:100%;height:100%;"></div>
+        <div class="project-overlay">
+          <div class="project-meta">
+            <div class="project-tag">Komersial · 2024</div>
+            <div class="project-title">Luxurious Loft: Industrial Chic</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-2" data-cat="minimalist">
+        <div class="project-img-ph ph-3" style="width:100%;height:100%;"></div>
+        <div class="project-overlay">
+          <div class="project-meta">
+            <div class="project-tag">Minimalis · 2024</div>
+            <div class="project-title">Coastal Vibes: Serenity By The Sea</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal" data-cat="minimalist">
+        <div class="project-img-ph ph-4" style="width:100%;height:100%;"></div>
+        <div class="project-overlay">
+          <div class="project-meta">
+            <div class="project-tag">Minimalis · 2024</div>
+            <div class="project-title">Minimalist Haven: Clean & Inviting</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-1" data-cat="residential">
+        <div class="project-img-ph ph-5" style="width:100%;height:100%;"></div>
+        <div class="project-overlay">
+          <div class="project-meta">
+            <div class="project-tag">Residensial · 2023</div>
+            <div class="project-title">Tropical Essence: Warm & Natural</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-2" data-cat="commercial">
+        <div class="project-img-ph ph-6" style="width:100%;height:100%;"></div>
+        <div class="project-overlay">
+          <div class="project-meta">
+            <div class="project-tag">Komersial · 2023</div>
+            <div class="project-title">Executive Suite: Power & Elegance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROCESS
+     ============================================================ -->
+<section id="process">
+  <div class="process-bg-text" aria-hidden="true">PROCESS</div>
+  <div class="container">
+    <p class="eyebrow reveal">Cara Kerja Kami</p>
+    <h2 class="display display-md reveal reveal-delay-1" style="color:var(--cream);margin:1rem 0 3.5rem;max-width:480px;">Dari konsep ke karya nyata</h2>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <div class="step-title">Konsultasi Awal</div>
+        <div class="step-desc">Kami memulai dengan pertemuan personal untuk memahami visi, preferensi, dan kebutuhan Anda.</div>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="step-num">02</div>
+        <div class="step-title">Perencanaan Desain</div>
+        <div class="step-desc">Pemilihan material, tata letak, furnitur, serta pembuatan rendering 3D untuk visualisasi.</div>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="step-num">03</div>
+        <div class="step-title">Eksekusi Proyek</div>
+        <div class="step-desc">Dengan rencana desain siap, kami mengelola dan mengkoordinasi semua aspek proyek.</div>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="step-num">04</div>
+        <div class="step-title">Tinjauan Akhir</div>
+        <div class="step-desc">Setelah selesai, kami melakukan walkthrough menyeluruh bersama Anda untuk memastikan kepuasan penuh.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SKILLS
+     ============================================================ -->
+<section id="skills">
+  <div class="container">
+    <div class="skills-grid">
+      <div class="skills-visual reveal">
+        <div class="skill-img-card img-ph ph-2" style="margin-top:3rem;">
+          <div style="width:100%;height:100%;background:linear-gradient(145deg,#B8C4B8,#8FA890);"></div>
+        </div>
+        <div class="skill-img-card img-ph ph-4">
+          <div style="width:100%;height:100%;background:linear-gradient(145deg,#D4C8B8,#BFB098);"></div>
+        </div>
+      </div>
+      <div class="skills-text reveal reveal-delay-1">
+        <p class="eyebrow">Keahlian Kami</p>
+        <h2 class="display display-md" style="margin:1rem 0 2rem;">Keahlian yang membentuk<br>rumah impian Anda</h2>
+        <div class="skill-bar">
+          <div class="skill-bar-header">
+            <span class="skill-bar-name">Perencanaan Tata Ruang</span>
+            <span class="skill-bar-pct">95%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.95"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-header">
+            <span class="skill-bar-name">Tantangan & Solusi Proyek</span>
+            <span class="skill-bar-pct">90%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.90"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-header">
+            <span class="skill-bar-name">Keberlanjutan & Eco-Friendly</span>
+            <span class="skill-bar-pct">85%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.85"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-header">
+            <span class="skill-bar-name">Visualisasi 3D & Rendering</span>
+            <span class="skill-bar-pct">92%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.92"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section id="testimonials">
+  <div class="container">
+    <div class="testimonial-header">
+      <p class="eyebrow reveal">Testimoni</p>
+      <h2 class="display display-md reveal reveal-delay-1" style="margin-top:1rem;">Dipercaya ribuan klien &amp; perusahaan</h2>
+    </div>
+    <div class="testimonials-track-wrap reveal">
+      <div class="testimonials-track" id="t-track">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <div class="testimonial-text">"Saya tidak bisa lebih bahagia dengan transformasi rumah saya! Dari konsultasi pertama, tim benar-benar memahami visi dan preferensi saya."</div>
+          <div class="testimonial-author">
+            <div class="author-avatar img-ph"></div>
+            <div>
+              <div class="author-name">Arlene McCoy</div>
+              <div class="author-role">Co. Founder, Studio Kreatif</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <div class="testimonial-text">"Profesionalisme dan kreativitas tim Cakrawala Indah melampaui ekspektasi saya. Kantor kami kini menjadi ruang yang benar-benar menginspirasi."</div>
+          <div class="testimonial-author">
+            <div class="author-avatar img-ph" style="background:var(--gold-light);"></div>
+            <div>
+              <div class="author-name">Budi Santoso</div>
+              <div class="author-role">CEO, Perusahaan Teknologi</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <div class="testimonial-text">"Proses yang sangat mulus dari awal hingga akhir. Mereka tidak hanya mendesain ruang, tapi benar-benar mendengar kebutuhan keluarga kami."</div>
+          <div class="testimonial-author">
+            <div class="author-avatar img-ph" style="background:#C4B8B0;"></div>
+            <div>
+              <div class="author-name">Siti Rahayu</div>
+              <div class="author-role">Ibu Rumah Tangga, Jakarta</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <div class="testimonial-text">"Detail dan kualitas pekerjaan mereka sangat luar biasa. Setiap sudut ruangan terasa bermakna dan dirancang dengan penuh perhatian."</div>
+          <div class="testimonial-author">
+            <div class="author-avatar img-ph" style="background:#B8C4B8;"></div>
+            <div>
+              <div class="author-name">Ahmad Fauzi</div>
+              <div class="author-role">Arsitek, Surabaya</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-controls">
+      <button class="t-btn" id="t-prev" aria-label="Sebelumnya">←</button>
+      <div class="t-dots" id="t-dots">
+        <div class="t-dot active"></div>
+        <div class="t-dot"></div>
+        <div class="t-dot"></div>
+      </div>
+      <button class="t-btn" id="t-next" aria-label="Berikutnya">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="eyebrow">Hubungi Kami</p>
+        <h2 class="display display-md">Wujudkan<br>Ruang <em style="font-style:italic;color:var(--gold)">Impian</em><br>Anda Hari Ini</h2>
+        <p class="lead">Kami siap mendengar visi Anda dan memulai perjalanan desain yang luar biasa bersama.</p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <span class="contact-detail-icon">📞</span>
+            <div>
+              <div class="contact-detail-label">Telepon</div>
+              <div class="contact-detail-value">+62 274 XXX XXX</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-detail-icon">✉️</span>
+            <div>
+              <div class="contact-detail-label">Email</div>
+              <div class="contact-detail-value">hello@cakrawalaindahgroup.com</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-detail-icon">📍</span>
+            <div>
+              <div class="contact-detail-label">Alamat Studio</div>
+              <div class="contact-detail-value">Klaten, Jawa Tengah, Indonesia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form reveal reveal-delay-1">
+        <!-- Supabase Config — ganti dengan URL & ANON KEY Anda -->
+        <p style="font-size:0.7rem;color:rgba(245,240,232,0.3);margin-bottom:1.5rem;letter-spacing:0.08em;">⚡ Powered by Supabase — Pesan terkirim langsung ke database</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-name">Nama Lengkap</label>
+            <input type="text" id="f-name" class="form-input" placeholder="Nama Anda" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-email">Email</label>
+            <input type="email" id="f-email" class="form-input" placeholder="email@anda.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-service">Layanan yang Diminati</label>
+          <select id="f-service" class="form-input" style="appearance:none;">
+            <option value="" disabled selected>Pilih layanan...</option>
+            <option value="residential">Desain Interior Residensial</option>
+            <option value="commercial">Desain Interior Komersial</option>
+            <option value="furniture">Kurasi Furnitur & Dekorasi</option>
+            <option value="lighting">Desain Pencahayaan</option>
+            <option value="color">Konsultasi Warna</option>
+            <option value="other">Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-message">Pesan</label>
+          <textarea id="f-message" class="form-input" placeholder="Ceritakan tentang proyek atau pertanyaan Anda..." rows="4"></textarea>
+        </div>
+        <button class="form-btn" id="submit-btn" type="button">
+          Kirim Pesan <span id="btn-arrow">→</span>
+        </button>
+        <div class="form-message" id="form-msg"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     NEWSLETTER
+     ============================================================ -->
+<section id="newsletter">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div>
+        <h3>Inspirasi Desain,<br>Langsung ke Kotak Masuk Anda</h3>
+        <p>Dapatkan tren terbaru, tips desain eksklusif, dan penawaran spesial.</p>
+      </div>
+      <div>
+        <div class="newsletter-form">
+          <input type="email" id="nl-email" class="newsletter-input" placeholder="Email Anda...">
+          <button class="newsletter-btn" id="nl-btn" type="button">Langganan</button>
+        </div>
+        <div id="nl-msg" style="margin-top:0.5rem;font-size:0.78rem;color:rgba(26,22,18,0.7);"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Cakrawala <span>Indah</span> Group</div>
+        <p>Studio desain interior premium yang menghadirkan ruang impian Anda dengan sentuhan seni dan keahlian profesional selama lebih dari satu dekade.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram">IG</a>
+          <a href="#" class="social-link" aria-label="Facebook">FB</a>
+          <a href="#" class="social-link" aria-label="Pinterest">PT</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">LI</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="#about">Tentang Perusahaan</a></li>
+          <li><a href="#services">Layanan Kami</a></li>
+          <li><a href="#projects">Proyek Terbaru</a></li>
+          <li><a href="#">Karir</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Layanan</h4>
+        <ul>
+          <li><a href="#services">Desain Residensial</a></li>
+          <li><a href="#services">Desain Komersial</a></li>
+          <li><a href="#services">Kurasi Furnitur</a></li>
+          <li><a href="#services">Desain Pencahayaan</a></li>
+          <li><a href="#services">Konsultasi Warna</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li><a href="tel:+62274000000">+62 274 XXX XXX</a></li>
+          <li><a href="mailto:hello@cakrawalaindahgroup.com">hello@cakrawalaindahgroup.com</a></li>
+          <li><a href="#">Klaten, Jawa Tengah</a></li>
+          <li><a href="#">Senin – Sabtu, 09.00–17.00</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Cakrawala Indah Group. Hak Cipta Dilindungi.</span>
+      <span>Dibangun tanpa WordPress — Murni HTML + Supabase</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll Top -->
+<button id="scroll-top" aria-label="Kembali ke atas">↑</button>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script>
+/* ============================================================
+   SUPABASE CONFIG — Ganti dengan kredensial Anda
+   ============================================================ */
+const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
+const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+
+// Inisialisasi Supabase (hanya jika kunci sudah diisi)
+let supabase = null;
+if (SUPABASE_URL !== 'https://YOUR_PROJECT.supabase.co') {
+  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
+/* ============================================================
+   CURSOR
+   ============================================================ */
+const cursor = document.getElementById('cursor');
+if (cursor && window.matchMedia('(hover: hover)').matches) {
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  document.getElementById('scroll-top').classList.toggle('show', window.scrollY > 400);
+});
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+const mobileMenu = document.getElementById('mobile-menu');
+document.getElementById('menu-toggle').addEventListener('click', () => {
+  mobileMenu.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+const closeMenu = () => { mobileMenu.classList.remove('open'); document.body.style.overflow = ''; };
+document.getElementById('menu-close').addEventListener('click', closeMenu);
+document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', closeMenu));
+
+/* ============================================================
+   SCROLL-TO-TOP
+   ============================================================ */
+document.getElementById('scroll-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ============================================================
+   INTERSECTION OBSERVER — reveal + skill bars + counters
+   ============================================================ */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// Skill bars
+const skillObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        const w = parseFloat(bar.style.getPropertyValue('--w') || 1);
+        bar.style.transform = `scaleX(${w})`;
+        bar.classList.add('animated');
+      });
+      skillObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('#skills').forEach(s => skillObs.observe(s));
+
+// Counter animation
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-count]').forEach(el => {
+        const target = parseInt(el.dataset.count);
+        const dur = 1800;
+        const start = performance.now();
+        const tick = (now) => {
+          const progress = Math.min((now - start) / dur, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(ease * target);
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = target;
+        };
+        requestAnimationFrame(tick);
+      });
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('#hero').forEach(s => counterObs.observe(s));
+
+/* ============================================================
+   PROJECT FILTER
+   ============================================================ */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const filter = this.dataset.filter;
+    document.querySelectorAll('.project-card').forEach(card => {
+      const show = filter === 'all' || card.dataset.cat === filter;
+      card.style.opacity = show ? '1' : '0.25';
+      card.style.pointerEvents = show ? 'all' : 'none';
+      card.style.transition = 'opacity 0.4s';
+    });
+  });
+});
+
+/* ============================================================
+   TESTIMONIALS SLIDER
+   ============================================================ */
+const track = document.getElementById('t-track');
+const dots = document.querySelectorAll('.t-dot');
+let tIndex = 0;
+const tCards = document.querySelectorAll('.testimonial-card').length;
+const tVisible = window.innerWidth < 600 ? 1 : 2;
+
+function moveTo(i) {
+  tIndex = (i + tCards) % tCards;
+  const cardW = track.querySelector('.testimonial-card').offsetWidth + 32;
+  track.style.transform = `translateX(-${tIndex * cardW}px)`;
+  dots.forEach((d, j) => d.classList.toggle('active', j === tIndex % dots.length));
+}
+document.getElementById('t-prev').addEventListener('click', () => moveTo(tIndex - 1));
+document.getElementById('t-next').addEventListener('click', () => moveTo(tIndex + 1));
+setInterval(() => moveTo(tIndex + 1), 5000);
+
+/* ============================================================
+   CONTACT FORM — Supabase
+   ============================================================ */
+document.getElementById('submit-btn').addEventListener('click', async () => {
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const service = document.getElementById('f-service').value;
+  const message = document.getElementById('f-message').value.trim();
+  const msgEl = document.getElementById('form-msg');
+  const btn = document.getElementById('submit-btn');
+
+  if (!name || !email || !message) {
+    msgEl.textContent = '⚠ Mohon isi nama, email, dan pesan.';
+    msgEl.className = 'form-message error'; return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msgEl.textContent = '⚠ Format email tidak valid.';
+    msgEl.className = 'form-message error'; return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = 'Mengirim... <span>⏳</span>';
+  msgEl.textContent = '';
+
+  if (supabase) {
+    const { error } = await supabase.from('contact_messages').insert([
+      { name, email, service, message, created_at: new Date().toISOString() }
+    ]);
+    if (error) {
+      msgEl.textContent = '❌ Gagal mengirim. Coba lagi atau hubungi via WhatsApp.';
+      msgEl.className = 'form-message error';
+    } else {
+      msgEl.textContent = '✓ Pesan terkirim! Kami akan segera menghubungi Anda.';
+      msgEl.className = 'form-message success';
+      ['f-name','f-email','f-message'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('f-service').selectedIndex = 0;
+    }
+  } else {
+    // Demo mode (tanpa Supabase)
+    await new Promise(r => setTimeout(r, 1200));
+    msgEl.textContent = '✓ Demo: Pesan diterima! (Hubungkan Supabase untuk simpan data nyata)';
+    msgEl.className = 'form-message success';
+    ['f-name','f-email','f-message'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('f-service').selectedIndex = 0;
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = 'Kirim Pesan <span id="btn-arrow">→</span>';
+});
+
+/* ============================================================
+   NEWSLETTER — Supabase
+   ============================================================ */
+document.getElementById('nl-btn').addEventListener('click', async () => {
+  const email = document.getElementById('nl-email').value.trim();
+  const msg = document.getElementById('nl-msg');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msg.textContent = '⚠ Masukkan email yang valid.'; return;
+  }
+  msg.textContent = 'Mendaftar...';
+  if (supabase) {
+    const { error } = await supabase.from('newsletter_subscribers').insert([
+      { email, subscribed_at: new Date().toISOString() }
+    ]);
+    msg.textContent = error ? '❌ Gagal. Email mungkin sudah terdaftar.' : '✓ Berhasil berlangganan! Cek email Anda.';
+  } else {
+    await new Promise(r => setTimeout(r, 800));
+    msg.textContent = '✓ Demo: Berlangganan berhasil! (Hubungkan Supabase untuk data nyata)';
+    document.getElementById('nl-email').value = '';
+  }
+});
+
+/* ============================================================
+   SMOOTH SCROLL FOR NAV
+   ============================================================ */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
